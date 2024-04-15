@@ -3,35 +3,37 @@ let scores = JSON.parse(localStorage.getItem("score")) || {
   Losses: 0,
   Ties: 0,
 };
+const gameNames = ["rock", "paper", "scissors"];
 let intervalId;
 updateScores();
-
+function computerChooseGame() {
+  return gameNames[Math.floor(Math.random() * gameNames.length)];
+}
 function result(gameName) {
-  const gameNames = ["rock", "paper", "scissors"];
-  const compuerChoose = gameNames[Math.floor(Math.random() * gameNames.length)];
+  const computerChoose = computerChooseGame();
   let result = "";
   if (gameName === "rock") {
-    if (compuerChoose === "rock") {
+    if (computerChoose === "rock") {
       result = "Tie.";
-    } else if (compuerChoose === "paper") {
+    } else if (computerChoose === "paper") {
       result = "You lose.";
-    } else if (compuerChoose === "scissors") {
+    } else if (computerChoose === "scissors") {
       result = "You win.";
     }
   } else if (gameName === "paper") {
-    if (compuerChoose === "rock") {
+    if (computerChoose === "rock") {
       result = "You win.";
-    } else if (compuerChoose === "paper") {
+    } else if (computerChoose === "paper") {
       result = "Tie.";
-    } else if (compuerChoose === "scissors") {
+    } else if (computerChoose === "scissors") {
       result = "You lose.";
     }
   } else {
-    if (compuerChoose === "rock") {
+    if (computerChoose === "rock") {
       result = "You lose.";
-    } else if (compuerChoose === "paper") {
+    } else if (computerChoose === "paper") {
       result = "You win.";
-    } else if (compuerChoose === "scissors") {
+    } else if (computerChoose === "scissors") {
       result = "Tie.";
     }
   }
@@ -47,9 +49,9 @@ function result(gameName) {
   document.querySelector(".js-result").innerHTML = `${result}`;
 
   let computeImageSrc =
-    compuerChoose === "rock"
+    computerChoose === "rock"
       ? "images/rock-emoji.png"
-      : compuerChoose === "paper"
+      : computerChoose === "paper"
       ? "images/paper-emoji.png"
       : "images/scissors-emoji.png";
 
@@ -96,10 +98,8 @@ function autoPlay() {
   }
 }
 function computerPlayAlone() {
-  const gameNames = ["rock", "paper", "scissors"];
   intervalId = setInterval(function () {
-    const compuerChoose =
-      gameNames[Math.floor(Math.random() * gameNames.length)];
-    result(compuerChoose);
+    const computerChoose = computerChooseGame();
+    result(computerChoose);
   }, 1000);
 }
