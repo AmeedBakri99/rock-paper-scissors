@@ -27,6 +27,7 @@ img {
 .score {
   margin-top: 60px;
 }
+.auto-play-button,
 .reset-score-button {
   padding: 8px 15px;
   font-size: 15px;

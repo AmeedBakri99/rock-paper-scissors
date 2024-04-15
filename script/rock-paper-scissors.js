@@ -1,16 +1,14 @@
-
 let scores = JSON.parse(localStorage.getItem("score")) || {
   Wins: 0,
   Losses: 0,
   Ties: 0,
 };
-
+let intervalId;
 updateScores();
 
 function result(gameName) {
   const gameNames = ["rock", "paper", "scissors"];
-  const compuerChoose =
-    gameNames[Math.floor(Math.random() * gameNames.length)];
+  const compuerChoose = gameNames[Math.floor(Math.random() * gameNames.length)];
   let result = "";
   if (gameName === "rock") {
     if (compuerChoose === "rock") {
@@ -45,10 +43,8 @@ function result(gameName) {
   } else {
     scores.Ties += 1;
   }
-  
+
   document.querySelector(".js-result").innerHTML = `${result}`;
-
-
 
   let computeImageSrc =
     compuerChoose === "rock"
@@ -86,6 +82,24 @@ function restScore() {
   }
 }
 function resetProperties() {
-  document.querySelector(".js-score").innerHTML =
-    "Wins: 0, Losses: 0, Ties: 0";
+  document.querySelector(".js-score").innerHTML = "Wins: 0, Losses: 0, Ties: 0";
+}
+
+function autoPlay() {
+  const autoPlayButton = document.getElementById("autoPlayButtonId");
+  if (autoPlayButton.innerText === "Auto Play") {
+    autoPlayButton.innerHTML = "Stop Play";
+    computerPlayAlone();
+  } else {
+    autoPlayButton.innerHTML = "Auto Play";
+    clearInterval(intervalId);
+  }
+}
+function computerPlayAlone() {
+  const gameNames = ["rock", "paper", "scissors"];
+  intervalId = setInterval(function () {
+    const compuerChoose =
+      gameNames[Math.floor(Math.random() * gameNames.length)];
+    result(compuerChoose);
+  }, 1000);
 }
